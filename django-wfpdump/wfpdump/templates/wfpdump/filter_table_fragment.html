@@ -1,0 +1,14 @@
+<td class="action">
+    {% if f.action == "Permit" %}
+    <span class="green_bg">
+    {% elif f.action == "Block" %}
+    <span class="red_bg">
+    {% else %}
+    <span class="gray_bg">
+    {% endif %}
+    &nbsp;{{ f.action }}&nbsp;
+    </span>
+    <div>Weight: {{ f.weight }}</div>
+    <div>Eff wt: {{ f.effective_weight }}</div>
+</td>
+<td class="condition">{{ f.condition|linebreaksbr }}</td>

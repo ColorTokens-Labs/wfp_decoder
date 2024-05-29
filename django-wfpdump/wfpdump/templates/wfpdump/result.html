@@ -1,0 +1,201 @@
+{% load static %}
+{% load dict_helpers %}
+<html>
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'wfpdump/global.css' %}">
+    <style>
+        table {
+            width: 1200px;
+        }
+
+        td, th {
+            border: 1px solid;
+            border-collapse: collapse;
+            text-align: left;
+            padding: 0.5em;
+            color: black;
+        }
+
+        .dim td {
+            color: gray;
+        }
+
+        tr.title {
+            background-color: dodgerblue;
+        }
+
+        tr.header {
+            background-color: lightskyblue;
+        }
+
+        th.id {
+            width: 30px;
+        }
+
+        th.name, th.desc {
+            width: 525px;
+        }
+
+        th.filter {
+            width: 120px;
+        }
+
+        .box {
+            width:293px;
+            height:150px;
+            margin: 5px 10px 10px 0px;
+            text-align: center;
+            background-color: teal;
+            color: white;
+            float: left;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+        }
+
+        .large-text {
+            font-size: 24px;
+        }
+
+        .huge-text {
+            font-size: 48px;
+        }
+
+        .interactive td {
+            color: dodgerblue;
+            border-color: black;
+        }
+
+        .interactive:hover {
+            background-color: lightgray;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div><div class="large-text">{{ filename }}</div>
+            <div><br/>Created on:<br/>
+            {{ datetime }}</div>
+        </div>
+    </div>
+    <a href="#Providers">
+        <div class="interactive box">
+            <div>
+                <div class="huge-text">{{ providers|length }}</div>
+                <div>Providers</div>
+            </div>
+        </div>
+    </a>
+    <a href="#Sublayers">
+        <div class="interactive box">
+            <div>
+                <div class="huge-text">{{ sublayers|length }}</div>
+                <div>Sublayers</div>
+            </div>
+        </div>
+    </a>
+    <a href="#Layers">
+        <div class="interactive box">
+            <div>
+                <div class="huge-text">{{ layers|length }}</div>
+                <div>Layers</div>
+            </div>
+        </div>
+    </a>
+
+    <table id="Providers">
+        <thead>
+            <tr class="title">
+                <th colspan="4">Providers</th>
+            </tr>
+            <tr class="header">
+                <th class="id">#</th>
+                <th class="name">Name</th>
+                <th class="desc">Description</th>
+                <th class="filter">Filter count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in providers.values %}
+                {% if p.filter_count == 0 %}
+                    <tr class="dim">
+                {% else %}
+                    <tr class="interactive" onclick="window.location='provider/{{ p.key }}'">
+                {% endif %}
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ p.name }}</td>
+                        <td>{{ p.desc }}</td>
+                        <td>{{ p.filter_count }}</td>
+                    </tr>
+            {% endfor %}
+    </tbody>
+    </table>
+    <br />
+    <table id="Sublayers">
+        <thead>
+            <tr class="title">
+                <th colspan="4">Sublayers</th>
+            </tr>
+            <tr class="header">
+                <th class="id">#</th>
+                <th class="name">Name</th>
+                <th class="desc">Description</th>
+                <th class="filter">Filter count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in sublayers.values %}
+                {% if s.filter_count == 0 %}
+                    <tr class="dim">
+                {% else %}
+                    <tr class="interactive" onclick="window.location='sublayer/{{ s.key }}'">
+                {% endif %}
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ s.name }}</td>
+                        <td>{{ s.desc }}</td>
+                        <td>{{ s.filter_count }}</td>
+                    </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br />
+    <table id="Layers">
+        <thead>
+            <tr class="title">
+                <th colspan="4">Layers</th>
+            </tr>
+            <tr class="header">
+                <th class="id">Id</th>
+                <th class="name">Name</th>
+                <th class="desc">Default sublayer</th>
+                <th class="filter">Filter count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for l in layers.values %}
+                {% if l.filter_count == 0 %}
+                    <tr class="dim">
+                {% else %}
+                    <tr class="interactive" onclick="window.location='layer/{{ l.key }}'">
+                {% endif %}
+                        <td>{{ l.id }}</td>
+                        <td>{{ l.name }}</td>    
+                        {% if l.default_sublayer_key != None %}
+                            {% with dict=sublayers|get:l.default_sublayer_key %}                
+                            <td>{{ dict.name }}</td> 
+                            {% endwith %}
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        <td>{{ l.filter_count }}</td>
+                    </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>

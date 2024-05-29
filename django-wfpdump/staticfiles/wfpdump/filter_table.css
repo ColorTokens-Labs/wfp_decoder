@@ -1,0 +1,79 @@
+/*
+ *
+ *  Copyright (C) 2023 ColorTokens Inc.
+ *  By Venky Raju <venky.raju@colortokens.com>
+ *
+ */
+
+table {
+    width: 1400px;
+}
+
+th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+    text-align: left;
+    padding: 0.5em;
+}
+
+td {
+    font-size: small;
+}
+
+td.id {
+    width: 50px;
+}
+
+td.name {
+    max-width: 300px;
+    min-width: 300px;
+    text-overflow: ellipsis;
+    word-wrap: break-word;           
+}
+
+td.action {
+    min-width: 200px;
+    max-width: 200px;
+}
+
+td.condition {
+    max-width: 850px;
+    min-width: 850px;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+tbody tr:hover {
+    background-color: lightgray;
+}
+
+tr.title {
+    background-color: dodgerblue;
+}
+
+tr.header {
+    background-color: lightskyblue;
+}
+
+td > div.blueviolet {
+    color: blueviolet;
+}
+
+.teal {
+    color:teal;
+}
+
+.green_bg {
+    color:white;
+    background-color: green;
+}
+
+.red_bg {
+    color:white;
+    background-color: red;
+}
+
+.gray_bg {
+    color: white;
+    background-color: grey;
+}

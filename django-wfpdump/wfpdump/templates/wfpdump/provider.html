@@ -1,0 +1,51 @@
+{% load static %}
+{% load dict_helpers %}
+<html>
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'wfpdump/global.css' %}">
+    <link rel="stylesheet" href="{% static 'wfpdump/filter_table.css' %}">
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr class="title">
+                <th colspan="3">{{ desc }}</th>
+                <th colspan="1">{{ name }}</th>
+            </tr>
+            <tr class="header">
+                <th colspan="4">This provider has {{ filter_count }} filter rule(s).</th>
+            </tr>
+            <tr class="header">
+                <th class="id">Id</th>
+                <th class="name">Name and details</th>
+                <th class="action">Action</th>
+                <th class="condition">Conditions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for f in filters %}
+            <tr>
+                <td class="id">{{ f.id }}</td>
+                <td class="name">
+                    <div>Name: {{ f.name }}</div>
+                    <div class="blueviolet">{{ f.desc }}</div>
+                    {% with layer=layers|get:f.layer_key %}
+                    <div class="teal">Layer: {{ layer.name }}</div>
+                    {% endwith %}
+                    {% with sublayer=sublayers|get:f.sublayer_key %}
+                    <div class="teal">Sublayer: {{ sublayer.name }}</div>
+                    {% endwith %}
+                </td>
+                {% include "wfpdump/filter_table_fragment.html" %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+
+</html>

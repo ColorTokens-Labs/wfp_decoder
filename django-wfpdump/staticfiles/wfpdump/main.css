@@ -1,0 +1,69 @@
+/*
+ *
+ *  Copyright (C) 2023 ColorTokens Inc.
+ *  By Venky Raju <venky.raju@colortokens.com>
+ *
+ */
+
+body {
+   margin: 0px;
+   background-color: white;
+   font-family: 'Montserrat';
+   text-decoration: none;
+   color: black;
+   text-align: center;
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+
+p {
+   margin: 0.3em;
+}
+
+.spacer2 {
+   margin: 2em;
+}
+
+.title {
+   font-size: xx-large;
+}
+
+.title img {
+   max-height: 0.7em;
+}
+
+form input  {
+   visibility: hidden;
+   width: 0px;
+}
+
+.code {
+   background-color: #013686;
+   color: yellow;
+   margin-top: 2em;
+   margin-bottom: 2em;
+   padding: 1em;
+   display: inline-block;
+}
+
+.btn {
+   color:teal;
+   font-weight: bold;
+}
+
+a {
+   text-decoration: none;
+   color: teal;
+}
+
+.msg_box {
+   background-color: red;
+   color: white;
+   padding: 0.3em;
+}
+
+.footer {
+   font-size: small;
+}

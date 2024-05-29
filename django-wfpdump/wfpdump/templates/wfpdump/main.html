@@ -1,0 +1,46 @@
+{% load static %}
+<html>
+
+<head>
+   <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+   <link rel="stylesheet" href="{% static 'wfpdump/main.css' %}">
+</head>
+
+<body>
+   <p class="title">
+      <img src="{% static 'wfpdump/ct-icon.png' %}"/>&nbsp;WFP Decoder
+   </p>
+   <p>
+      Visualize your Windows Filtering Platform (WFP) state
+   </p>
+   <p class="spacer2"></p>
+   <p>Run the following command on the target Windows system:</p>
+   <p class="code">
+      C:\> netsh wfp show state
+   </p>
+
+   <form action="/wfpdump/upload" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="dumpfile" class="btn">Browse</label> for the generated <b>wfpstate.xml</b> file
+      <input id="dumpfile" name="dumpfile" type="file" accept=".xml" onchange="this.form.submit()" />
+   </form>
+
+   {% if msg != None %}
+   <p class="msg_box">{{ msg }}</p>
+   {% endif %}
+
+   <p class="spacer2"></p>
+   <p>
+      Would you like to see a <a href="/wfpdump/demo">demo</a>?
+   </p>
+
+   <p class="spacer2"></p>
+   <p class="footer">
+      <a href="mailto:venky.raju@colortokens.com">Report a bug</a><br />
+      &copy; 2024 ColorTokens Inc. All rights reserved.
+   </p>
+
+
+</body>
+
+</html>
